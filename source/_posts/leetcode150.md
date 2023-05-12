@@ -1,5 +1,8 @@
 title: LeetCode面试150题
 date: 2023-4-29 23:44
+cover: https://www.geekzl.com/wp-content/uploads/2020/10/1603980178-c305fb1df5f5fb7.png
+coverWidth: 1650
+coverHeight: 613
 tags:
 - 算法
 - 研究生
