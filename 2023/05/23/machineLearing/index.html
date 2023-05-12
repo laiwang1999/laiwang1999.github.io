@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+    
+    <title>机器学习 - 杨</title>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    
+    
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <meta name="description" content="机器学习1.机器学习的基本概念机器学习≈构建一个映射函数  语音识别 图像识别 围棋 落子位置 对话系统  基本概念 样本，特征，标签，模型，算法  X &#x3D; [x1,x2,...] 特征向量 Feature Vector 保证每个样本是独立同分布的（例如：抛硬币   2.机器学习的三要素（1）模型 （2）学习准则 交叉熵损失函数（负对数自然函数 )p永远&lt;1$$loss &#x3D; -p\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习">
+<meta property="og:url" content="https://hexo-theme-nexmoe-example.vercel.app/2023/05/23/machineLearing/index.html">
+<meta property="og:site_name" content="杨">
+<meta property="og:description" content="机器学习1.机器学习的基本概念机器学习≈构建一个映射函数  语音识别 图像识别 围棋 落子位置 对话系统  基本概念 样本，特征，标签，模型，算法  X &#x3D; [x1,x2,...] 特征向量 Feature Vector 保证每个样本是独立同分布的（例如：抛硬币   2.机器学习的三要素（1）模型 （2）学习准则 交叉熵损失函数（负对数自然函数 )p永远&lt;1$$loss &#x3D; -p\">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510105923640.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510133423833.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510133947884.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510144012644.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510145407206.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510152107609.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153109711.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153452219.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153624656.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153749689.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510154012561.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510154031453.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510154924411.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510155136858.png">
+<meta property="og:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510155802282.png">
+<meta property="article:published_time" content="2023-05-23T19:05:00.000Z">
+<meta property="article:modified_time" content="2023-05-12T11:08:33.437Z">
+<meta property="article:author" content="杨">
+<meta property="article:tag" content="研究生">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="机器学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510105923640.png">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"
+    />
+    
+    <link rel="stylesheet" href="/lib/mdui_043tiny/css/mdui.css?v=1683889722144">
+    <link rel="stylesheet" href="/lib/iconfont/iconfont.css?v=1683889722144">
+    <link rel="stylesheet" href="/css/style.css?v=1683889722144">
+     
+    
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="mdui-drawer-body-left">
+    
+    <div id="nexmoe-background">
+        <div class="nexmoe-bg" style="background-image: url(https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg)"></div>
+        <div class="mdui-appbar mdui-shadow-0">
+            <div class="mdui-toolbar">
+                <a mdui-drawer="{target: '#drawer', swipe: true}" title="menu" class="mdui-btn mdui-btn-icon mdui-ripple"><i class="mdui-icon nexmoefont icon-menu"></i></a>
+                <div class="mdui-toolbar-spacer"></div>
+                <!--<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">search</i></a>-->
+                <a href="/" title="杨" class="mdui-btn mdui-btn-icon"><img src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/avatar.png" alt="杨"></a>
+            </div>
+        </div>
+    </div>
+    <div id="nexmoe-header">
+        <div class="nexmoe-drawer mdui-drawer" id="drawer">
+    <div class="nexmoe-avatar mdui-ripple">
+        <a href="/" title="杨">
+            <img src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/avatar.png" alt="杨" alt="杨">
+        </a>
+    </div>
+    <div class="nexmoe-count">
+        <div><span>文章</span>19</div>
+        <div><span>标签</span>8</div>
+        <div><span>分类</span>5</div>
+    </div>
+    <div class="nexmoe-list mdui-list" mdui-collapse="{accordion: true}">
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/" title="回到首页">
+            <i class="mdui-list-item-icon nexmoefont icon-home"></i>
+            <div class="mdui-list-item-content">
+                回到首页
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/about.html" title="关于博客">
+            <i class="mdui-list-item-icon nexmoefont icon-info-circle"></i>
+            <div class="mdui-list-item-content">
+                关于博客
+            </div>
+        </a>
+        
+        <a class="nexmoe-list-item mdui-list-item mdui-ripple false" href="/PY.html" title="我的朋友">
+            <i class="mdui-list-item-icon nexmoefont icon-unorderedlist"></i>
+            <div class="mdui-list-item-content">
+                我的朋友
+            </div>
+        </a>
+        
+    </div>
+    <aside id="nexmoe-sidebar">
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-search">
+         
+            <form id="search_form" action_e="https://cn.bing.com/search?q=site:nexmoe.com" onsubmit="return search();">
+                <label><input id="search_value" name="q" type="search" placeholder="搜索"></label>
+            </form>
+         
+    </div>
+</div>
+    
+    <div class="nexmoe-widget-wrap">
+    <div class="nexmoe-widget nexmoe-social">
+        <a class="mdui-ripple" href="https://jq.qq.com/?_wv=1027&k=5CfKHun" target="_blank" mdui-tooltip="{content: 'QQ群'}" style="color: rgb(249, 174, 8);background-color: rgba(249, 174, 8, .1);">
+            <i class="nexmoefont icon-QQ"></i>
+        </a><a class="mdui-ripple" href="https://space.bilibili.com/39481647" target="_blank" mdui-tooltip="{content: '哔哩哔哩'}" style="color: rgb(231, 106, 141);background-color: rgba(231, 106, 141, .15);">
+            <i class="nexmoefont icon-bilibili"></i>
+        </a><a class="mdui-ripple" href="https://github.com/laiwang1999/" target="_blank" mdui-tooltip="{content: 'GitHub'}" style="color: rgb(25, 23, 23);background-color: rgba(25, 23, 23, .15);">
+            <i class="nexmoefont icon-github"></i>
+        </a>
+    </div>
+</div>
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <h3 class="nexmoe-widget-title">文章分类</h3>
+    <div class="nexmoe-widget">
+
+      <ul class="category-list">
+
+        
+
+
+        
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/思考/">思考</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/演示分类/">演示分类</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/思考/算法/研究生/生活啊，他苦涩如歌/">生活啊，他苦涩如歌</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/思考/算法/研究生/">研究生</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+
+        <li class="category-list-item">
+          <a class="category-list-link" href="/categories/思考/算法/">算法</a>
+          <span class="category-list-count">1</span>
+        </li>
+
+        
+      </ul>
+
+    </div>
+  </div>
+
+
+    
+    
+  <div class="nexmoe-widget-wrap">
+    <div id="randomtagcloud" class="nexmoe-widget tagcloud nexmoe-rainbow">
+      <a href="/tags/Bar/" style="font-size: 10px;">Bar</a> <a href="/tags/Foo/" style="font-size: 10px;">Foo</a> <a href="/tags/%E6%80%9D%E8%80%83/" style="font-size: 10px;">思考</a> <a href="/tags/%E6%9C%AA%E6%9D%A5%E8%A7%84%E5%88%92/" style="font-size: 10px;">未来规划</a> <a href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" style="font-size: 10px;">机器学习</a> <a href="/tags/%E6%BC%94%E7%A4%BA%E6%A0%87%E7%AD%BE/" style="font-size: 10px;">演示标签</a> <a href="/tags/%E7%A0%94%E7%A9%B6%E7%94%9F/" style="font-size: 20px;">研究生</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 15px;">算法</a>
+    </div>
+    
+  </div>
+
+    
+</aside>
+    <div class="nexmoe-copyright">
+        &copy; 2023 杨
+        Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        & <a href="https://github.com/theme-nexmoe/hexo-theme-nexmoe" target="_blank">Nexmoe</a>
+        <br><a target="_blank" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="https://i.dawnlab.me/c0268c1e6cfd0863d6ba35be1575941a.png" width="150px"></a><script data-ad-client="ca-pub-2058306854838448" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </div>
+</div><!-- .nexmoe-drawer -->
+    </div>
+    <div id="nexmoe-content">
+        <div class="nexmoe-primary">
+            <div class="nexmoe-post">
+
+  <article>
+      
+          <div class="nexmoe-post-cover" style="padding-bottom: 66.66666666666666%;"> 
+              <img data-fancybox="gallery" src="https://cdn.jsdelivr.net/gh/nexmoe/nexmoe.github.io@latest/images/cover/5c3aec85a4343.jpg" alt="机器学习" loading="lazy">
+              <h1>机器学习</h1>
+          </div>
+      
+      
+      <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
+    <a><i class="nexmoefont icon-calendar-fill"></i>2023年05月23日</a>
+</div>
+
+      <h1 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h1><h2 id="1-机器学习的基本概念"><a href="#1-机器学习的基本概念" class="headerlink" title="1.机器学习的基本概念"></a>1.机器学习的基本概念</h2><p>机器学习≈构建一个映射函数</p>
+<ul>
+<li>语音识别</li>
+<li>图像识别</li>
+<li>围棋 落子位置</li>
+<li>对话系统</li>
+</ul>
+<p>基本概念</p>
+<p>样本，特征，标签，模型，算法</p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510105923640.png" alt="image-20230510105923640" data-caption="image-20230510105923640" loading="lazy"></p>
+<p><code>X = [x1,x2,...]</code> 特征向量 Feature Vector</p>
+<p>保证每个样本是独立同分布的（例如：抛硬币</p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510133423833.png" alt="image-20230510133423833" data-caption="image-20230510133423833" loading="lazy"></p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510133947884.png" alt="image-20230510133947884" data-caption="image-20230510133947884" loading="lazy"></p>
+<h2 id="2-机器学习的三要素"><a href="#2-机器学习的三要素" class="headerlink" title="2.机器学习的三要素"></a>2.机器学习的三要素</h2><h3 id="（1）模型"><a href="#（1）模型" class="headerlink" title="（1）模型"></a>（1）模型</h3><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510144012644.png" alt="image-20230510144012644" data-caption="image-20230510144012644" loading="lazy"></p>
+<h3 id="（2）学习准则"><a href="#（2）学习准则" class="headerlink" title="（2）学习准则"></a>（2）学习准则</h3><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510145407206.png" alt="image-20230510145407206" data-caption="image-20230510145407206" loading="lazy"></p>
+<h4 id="交叉熵损失函数（负对数自然函数"><a href="#交叉熵损失函数（负对数自然函数" class="headerlink" title="交叉熵损失函数（负对数自然函数 )"></a>交叉熵损失函数（负对数自然函数 )</h4><p>p永远&lt;1<br>$$<br>loss &#x3D; -p\log_{2}\hat{p}<br>$$</p>
+<h4 id="2分类损失函数"><a href="#2分类损失函数" class="headerlink" title="2分类损失函数"></a>2分类损失函数</h4><p>$$<br>L &#x3D; \max (0,1-y*\hat{y} )<br>$$</p>
+<h4 id="经验风险最小化"><a href="#经验风险最小化" class="headerlink" title="经验风险最小化"></a>经验风险最小化</h4><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510152107609.png" alt="image-20230510152107609" data-caption="image-20230510152107609" loading="lazy"></p>
+<h4 id="过拟合"><a href="#过拟合" class="headerlink" title="过拟合"></a>过拟合</h4><p><img src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153109711.png"></p>
+<h3 id="（3）优化"><a href="#（3）优化" class="headerlink" title="（3）优化"></a>（3）优化</h3><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153452219.png" alt="image-20230510153452219" data-caption="image-20230510153452219" loading="lazy"></p>
+<h4 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h4><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153624656.png" alt="image-20230510153624656" data-caption="image-20230510153624656" loading="lazy"></p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510153749689.png" alt="image-20230510153749689" data-caption="image-20230510153749689" loading="lazy"></p>
+<h4 id="最优化问题"><a href="#最优化问题" class="headerlink" title="最优化问题"></a>最优化问题</h4><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510154012561.png" alt="image-20230510154012561" data-caption="image-20230510154012561" loading="lazy"></p>
+<h4 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h4><p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510154031453.png" alt="image-20230510154031453" data-caption="image-20230510154031453" loading="lazy"></p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510154924411.png" alt="image-20230510154924411" data-caption="image-20230510154924411" loading="lazy"></p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510155136858.png" alt="image-20230510155136858" data-caption="image-20230510155136858" loading="lazy"></p>
+<p><img data-fancybox="gallery" src="https://image-yangj.oss-cn-beijing.aliyuncs.com/typora/image-20230510155802282.png" alt="image-20230510155802282" data-caption="image-20230510155802282" loading="lazy"></p>
+
+  </article>
+
+  
+      
+    <div class="nexmoe-post-copyright">
+        <strong>本文作者：</strong>杨<br>
+        <strong>本文链接：</strong><a href="https://hexo-theme-nexmoe-example.vercel.app/2023/05/23/machineLearing/" title="https:&#x2F;&#x2F;hexo-theme-nexmoe-example.vercel.app&#x2F;2023&#x2F;05&#x2F;23&#x2F;machineLearing&#x2F;" target="_blank" rel="noopener">https:&#x2F;&#x2F;hexo-theme-nexmoe-example.vercel.app&#x2F;2023&#x2F;05&#x2F;23&#x2F;machineLearing&#x2F;</a><br>
+        
+            <strong>版权声明：</strong>本文采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/cn/deed.zh" target="_blank">CC BY-NC-SA 3.0 CN</a> 协议进行许可
+        
+    </div>
+
+
+  
+  
+  <div class="nexmoe-post-meta nexmoe-rainbow">
+    
+    
+        <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E7%A0%94%E7%A9%B6%E7%94%9F/" rel="tag">研究生</a> <a class="nexmoefont icon-tag-fill -none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+    
+</div>
+
+  
+      <div class="nexmoe-post-footer">
+          <section class="nexmoe-comment">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.css">
+<div id="gitalk"></div>
+<script src="https://cdn.jsdelivr.net/npm/gitalk@latest/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '80b2453b6d5f37ad6225',
+        clientSecret: '43e99fa852795c9a7b3eb924b2558c64b84bbdeb',
+        id: window.location.pathname,
+        repo: 'nexmoe.github.io',
+        owner: 'nexmoe',
+        admin: 'nexmoe'
+    })
+    gitalk.render('gitalk')
+</script>
+</section>
+      </div>
+  
+</div>
+            <div class="nexmoe-post-right">
+              <div class="nexmoe-fixed">
+                  <div class="nexmoe-tool"> 
+                    
+                      
+                        
+                          
+                          
+                              <button class="mdui-fab catalog" style="overflow:unset;">
+                                  <i class="nexmoefont icon-i-catalog"></i>
+                                  <div class="nexmoe-toc">
+                                      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-number">1.</span> <span class="toc-text">机器学习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text">1.机器学习的基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%89%E8%A6%81%E7%B4%A0"><span class="toc-number">1.2.</span> <span class="toc-text">2.机器学习的三要素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%881%EF%BC%89%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">（1）模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%882%EF%BC%89%E5%AD%A6%E4%B9%A0%E5%87%86%E5%88%99"><span class="toc-number">1.2.2.</span> <span class="toc-text">（2）学习准则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%EF%BC%88%E8%B4%9F%E5%AF%B9%E6%95%B0%E8%87%AA%E7%84%B6%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">交叉熵损失函数（负对数自然函数 )</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2%E5%88%86%E7%B1%BB%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2分类损失函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%8F%E9%AA%8C%E9%A3%8E%E9%99%A9%E6%9C%80%E5%B0%8F%E5%8C%96"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">经验风险最小化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%8B%9F%E5%90%88"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">过拟合</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%883%EF%BC%89%E4%BC%98%E5%8C%96"><span class="toc-number">1.2.3.</span> <span class="toc-text">（3）优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E5%8C%96"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">正则化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.3.2.</span> <span class="toc-text">最优化问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95"><span class="toc-number">1.2.3.3.</span> <span class="toc-text">梯度下降法</span></a></li></ol></li></ol></li></ol></li></ol>
+                                  </div>
+                              </button>
+                          
+                          
+                      
+                    
+                      <a href="#nexmoe-content" class="toc-link" aria-label="回到顶部" title="top"><button class="mdui-fab mdui-ripple"><i class="nexmoefont icon-caret-top"></i></button></a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+     
+    <div id="nexmoe-search-space">
+        <div class="search-container">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <input class="search-input" type="text" placeholder="搜索" oninput="sinput();">
+                </div>
+                <a class="search-close" onclick="sclose();">×</a>
+            </div>
+            <div class="search-body"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/mdui@0.4.3/dist/js/mdui.min.js?v=1"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+ 
+
+<script async src="/js/app.js?v=1683889722147"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js"></script>
+<script>
+	$(".justified-gallery").justifiedGallery({
+		rowHeight: 160,
+		margins: 10,
+	});
+</script>
+
+
+    
+
+
+
+
+
+</body>
+
+</html>
